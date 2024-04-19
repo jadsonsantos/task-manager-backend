@@ -1,14 +1,13 @@
-const dotenv = require("dotenv");
 const express = require("express");
 const connectToDatabase = require("./database/mongoose.database");
+const TaskModel = require("./models/task.model");
 
-dotenv.config();
 const app = express();
 
 connectToDatabase();
 
-app.get("/tasks", (req, res) => {
-    const tasks = [{ description: "Estudar programação", isCompleted: false }];
+app.get("/tasks", async (req, res) => {
+    const tasks = await TaskModel.find({});
 
     res.status(200).send(tasks);
 });
